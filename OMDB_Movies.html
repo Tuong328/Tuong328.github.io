@@ -5,28 +5,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Styles/moviestyles.css">
     <title>Movies</title>
 
 <body>
-    <h1> <span id = "title"></span><br /></h1>
+    <h1> <span id="title"></span><br /></h1>
     <p>
-        <img src = "" id = "picture"></span><br />
+        <img src="" id="picture" height="300px"></span><br />
 
-        <b>Year of Release: <span id = "YoR"></span></b>
-
-        <br>
-        <b>IMDb Rating: <span id = "imdb"></span></b>
+        <b>Year of Release: <span id="YoR"></span></b>
 
         <br>
+        <b>IMDb Rating: <span id="imdb"></span></b>
 
-        <b>Plot: <span id = "plot"></span></b>
+        <br>
+
+        <b>Plot: <span id="plot"></span></b>
         <br>
         <button onClick="window.location.reload();">Search for a different movie</button>
         <br>
-        <a href = "index.html" title = "Main page">Main Page</a>
+        <a href="index.html" title="Main page">Back to Main Page</a>
     </p>
-    
+
 
 
 
@@ -44,8 +44,18 @@
             document.getElementById('YoR').textContent = data.Year;
             document.getElementById('imdb').textContent = data.imdbRating;
             document.getElementById('plot').textContent = data.Plot
+
+            if (data.Error === "Movie not found!") {
+                if (confirm('Please make sure to input a valid movie title, title is not case sensitive, but does have to spelled correctly')) {
+                    window.location.reload();
+                }
+            }
         }
-    
+
+
+
+
+
     </script>
     </head>
 
