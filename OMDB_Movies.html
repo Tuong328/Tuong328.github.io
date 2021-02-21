@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="Styles/moviestyles.css">
-    <title>Movies</title>
+    <title>Movies and Shows</title>
 
 <body>
     <h1> <span id="title"></span><br /></h1>
@@ -23,7 +23,7 @@
         <b>Plot: <span id="plot"></span></b>
 
         <br>
-        <button onClick="window.location.reload();">Search for a different movie</button>
+        <button onClick="window.location.reload();">Search for a different movie or show</button>
         <br>
         <a href="index.html" title="Main page">Back to Main Page</a>
     </p>
@@ -33,7 +33,7 @@
 
     <img src="" id="Movies" />
     <script>
-        var movieTitle = prompt('Please enter a movie title', '');
+        var movieTitle = prompt('Please enter a movie or show title', '');
         const apiURL = "https://www.omdbapi.com/?t=" + movieTitle + "&apikey=82a2bcd1"
         getData();
         async function getData() {
@@ -46,8 +46,8 @@
             document.getElementById('imdb').textContent = data.imdbRating;
             document.getElementById('plot').textContent = data.Plot
 
-            if (data.Error === "Movie not found!") {
-                if (confirm('Please make sure to input a valid movie title, title is not case sensitive, but does have to spelled correctly')) {
+            if (data.Error === "Movie/Show not found!") {
+                if (confirm('Please make sure to input a valid movie or show title, title is not case sensitive, but does have to spelled correctly')) {
                     window.location.reload();
                 }
             }
