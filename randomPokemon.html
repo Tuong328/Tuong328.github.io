@@ -14,7 +14,7 @@
     <h1><span id="name"></span><br /></h1>
     <p>
         <span id="type"></span><br />
-        <img src="" id="picture"></span><br />
+        <img src="" id="picture"> <img src="" id="shiny"></span></span><br />
         <span id="imageLink"></span><br />
         <button onClick = "window.location.reload()"; class = "button button1">Find a different Pokemon</button>
 
@@ -55,7 +55,8 @@
             document.getElementById('name').textContent = pokemonNameUpperCase + " - " + "Pokedex #" + data.id;
             document.getElementById('type').textContent = "Type: " + typesAsList(data.types);
             document.getElementById('picture').src = data.sprites.front_default;
-            document.getElementById('Evolutions').textContent = "evolution chain: " + data.evolution_chain.url;
+            //document.getElementById('Evolutions').textContent = "evolution chain: " + data.evolution_chain.url;
+            document.getElementById('shiny').src = data.sprites.front_shiny;
 
         }
 
