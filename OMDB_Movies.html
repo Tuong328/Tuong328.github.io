@@ -46,7 +46,7 @@
             document.getElementById('imdb').textContent = data.imdbRating;
             document.getElementById('plot').textContent = data.Plot
 
-            if (data.Error === "Movie/Show not found!") {
+            if (data.Error === "Movie not found!" || data.Error === "Incorrect IMDb ID.") {
                 if (confirm('Please make sure to input a valid movie or show title, title is not case sensitive, but does have to spelled correctly')) {
                     window.location.reload();
                 }

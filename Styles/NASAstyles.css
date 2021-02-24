@@ -9,3 +9,7 @@ body {
     color:honeydew;
     font-family:Arial, Helvetica, sans-serif;
 }
+
+iframe[src = ""] {
+    display: none;
+}

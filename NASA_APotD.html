@@ -14,8 +14,9 @@
         
         
         <iframe width="420" height="315"
-        src="" id = 'visuals' scrolling = "no" frameborder = "0">
+        src="#" id = 'visuals' scrolling = "no" frameborder = "0">
         </iframe> 
+        <img src = "#" id = 'picture' width="420" height="315"></span>
         <br>
         <br>
         <b>Explanation:</b> <span id = "explanation"></span><br />
@@ -34,9 +35,12 @@
         async function getData() {
             const response = await fetch(apiURL);
             const data = await response.json();
+            if (data.media_type === "image") {
+            document.getElementById('picture').src = data.hdurl;
+            document.getElementById('visuals').src = "";
+            } else {
             document.getElementById('visuals').src = data.url;
-            if (data.hdurl != undefined) {
-            document.getElementById('visuals').src = data.hdurl;
+            document.getElementById('picture').src = "";
             }
             document.getElementById('explanation').textContent = data.explanation;
             document.getElementById('Copyright').textContent = data.copyright;
