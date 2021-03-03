@@ -1,0 +1,80 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reaction Time Test</title>
+    <link rel="stylesheet" href="Styles/reactiontime.css">
+
+    <h1 style="text-align: center;">Click when you are ready, then click the screen. You will be tested 5 times</h1>
+    <h3 style = "text-align: center;">WARNING: Flashing Lights <a href = "projects.html">Back to Projects</a></h3>
+    <h2 style ="text-align: center;"><button onclick="makeBox()" class = "button">Ready</button></h2>
+
+    <h3><p id="printReactionTime"></p></h3>
+
+	
+		<div id="box"></div>
+        
+    
+</head>
+
+<script>
+
+    function getRandomColor() {
+        var letters = "0123456789ABCDEF".split('');
+        var color = "#";
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.round(Math.random() * 15)];
+        } //ends for loop 
+        return color;
+    } // ends getRandomColor Function
+
+    var clickedTime; var createdTime; var reactionTime;
+
+    function makeBox() {
+        var time = Math.random();
+        time = time * 3000 + 10;
+        setTimeout(function () {
+            document.getElementById("box").style.borderRadius = "0";
+            document.getElementById("box").style.top = 0 + "px";
+            document.getElementById("box").style.left = 0 + "px";
+            document.getElementById("box").style.backgroundColor = getRandomColor();
+            document.getElementById("box").style.display = "block";
+            createdTime = Date.now();
+
+        }, time);
+
+    }
+
+    let i = 0;
+    let totalOfTimes = 0;
+    let average = 0;
+    
+    document.getElementById("box").onclick = function () {
+        i++;
+        if (i < 5) {
+            makeBox();
+        }
+        clickedTime = Date.now();
+        reactionTime = (clickedTime - createdTime) / 1000;
+        totalOfTimes += reactionTime;
+        document.getElementById("printReactionTime").innerHTML = 5-i + " Trials Left"
+        this.style.display = "none";
+
+        if (i == 5) {
+            average = (totalOfTimes / 5);
+            alert("Your overall reaction time average is " + average.toFixed(3) + " seconds");
+        }
+        
+    }
+
+    
+    
+    
+
+
+    
+
+
+</script>
+
+</html
