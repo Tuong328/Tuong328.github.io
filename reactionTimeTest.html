@@ -50,6 +50,7 @@
     let average = 0;
     
     document.getElementById("box").onclick = function () {
+        document.getElementById("printReactionTime").innerHTML = 5-i + " Trials Left"
         i++;
         if (i < 5) {
             makeBox();
