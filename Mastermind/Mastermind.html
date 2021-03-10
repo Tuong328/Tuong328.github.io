@@ -1,0 +1,560 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="mastermind.css">
+    <title>Mastermind</title>
+    <h1>Mastermind by James Tuong</h1>
+    Rules: A random board of four colors is generated
+    from a total of 6 different colors. The objective
+    of the game is to guess what the order of the colors
+    are in 6 tries. With each guess, if you chose a correct
+    color and it is in the correct spot, you will get a black peg,
+    if you get a white peg, that means that you have a correct
+    color, but it is not in the right spot.
+    Colors in this variation of game are: blue, orange, green, pink, yellow, red
+    <li>Example Game: red -> red -> blue -> orange</li>
+
+    <li>Example Guess 1: blue, orange, red, blue, will return 4 white pegs;
+    Guess 1 Explanation: user chose the right colors, but they are
+    not in the right order/position;</li>
+
+    <li>Example Guess 2: rrbb, will return 3 black pegs
+    Guess 2 Explanation: red, red, and blue are the correct guesses,
+    but the last color is orange;</li>
+    <li>Click "Clear Guess" to take back guesses on current attempt. Once you choose four, you lose an attempt.</li>
+
+
+
+    <button onclick="startGame()">Start Game</button>
+
+
+<body>
+    <li id="attempts"></li>
+
+
+    last attempt: <span id='lastAttempt'></span>
+    <li id="attempt1"></li>
+    <li id="attempt2"></li>
+    <li id="attempt3"></li>
+    <li id="attempt4"></li>
+    <li id="attempt5"></li>
+    <li id="attempt6"></li>
+    <li id="myGuesses"></li>
+
+
+    <div id="bluebox"></div>
+    <div id="redbox"></div>
+    <div id="orangebox"></div>
+    <div id="pinkbox"></div>
+    <div id="greenbox"></div>
+    <div id="yellowbox"></div>
+    <div id="removebox">Clear Guess</div>
+
+    <script>
+        //Peg and PegBW are both in here
+        class peg {
+            constructor() {
+                this.i = Math.floor(Math.random() * Math.floor(6));
+                if (this.i == 0) {
+                    this.blue = true;
+                    this.color = "blue";
+                } else if (this.i == 1) {
+                    this.orange = true;
+                    this.color = "orange";
+                } else if (this.i == 2) {
+                    this.green = true;
+                    this.color = "green";
+                } else if (this.i == 3) {
+                    this.pink = true;
+                    this.color = "pink";
+                } else if (this.i == 4) {
+                    this.yellow = true;
+                    this.color = "yellow";
+                } else if (this.i == 5) {
+                    this.red = true;
+                    this.color = "red";
+                }
+            }
+            color() {
+                return this.color;
+            }
+            isBlue() {
+                return this.blue;
+            }
+            isOrange() {
+                return this.orange;
+            }
+            isGreen() {
+                return this.green;
+            }
+            isPink() {
+                return this.pink;
+            }
+            isYellow() {
+                return this.yellow;
+            }
+            isRed() {
+                return this.red;
+            }
+        }
+
+        // PegBW class
+        class pegBW {
+            constructor(status) {
+                this.status = status;
+                if (status == 0) {
+                    this.black = true;
+                    this.color = "black";
+                    this.white = false;
+                    this.empty = false;
+                }
+                if (status == 1) {
+                    this.white = true;
+                    this.color = "white"
+                    this.black = false;
+                    this.empty = false
+                }
+                if (status == 2) {
+                    this.empty = true;
+                    this.color = "empty";
+                    this.black = false;
+                    this.white = false;
+                }
+            }
+
+            isBlack() {
+                return this.black;
+            }
+            isWhite() {
+                return this.white;
+            }
+            isEmpty() {
+                return this.empty;
+            }
+            color() {
+                return this.color;
+            }
+        }
+
+        //This is where the game board lies.
+
+
+
+        var guess1 = null;
+        var guess2 = null;
+        var guess3 = null;
+        var guess4 = null;
+
+        var attemptsLeft = 6;
+        var guessesLeftThisAttempt = 4;
+
+        //Four pegs
+        function startGame() {
+            let peg1 = new peg();
+            //document.getElementById('peg1').textContent = peg1.color;
+            let peg2 = new peg();
+            //document.getElementById('peg2').textContent = peg2.color;
+            let peg3 = new peg();
+            //document.getElementById('peg3').textContent = peg3.color;
+            let peg4 = new peg();
+            //document.getElementById('peg4').textContent = peg4.color;
+            console.log(peg1.color, peg2.color, peg3.color, peg4.color);
+
+            var correctAnswer = peg1.color + ", " + peg2.color + ", " + peg3.color + ", " + peg4.color;
+
+            document.getElementById('attempts').textContent = "You have 6 attempts left";
+            //Blue
+            document.getElementById("bluebox").style.borderRadius = "10";
+            document.getElementById("bluebox").style.top = 10 + "px";
+            document.getElementById("bluebox").style.left = 10 + "px";
+            document.getElementById("bluebox").style.display = "block";
+            document.getElementById("bluebox").onclick = function () {
+                guess("blue");
+                console.log("You clicked blue");
+            }
+
+            //Red
+            document.getElementById("redbox").style.borderRadius = "10";
+            document.getElementById("redbox").style.top = 10 + "px";
+            document.getElementById("redbox").style.left = 10 + "px";
+            document.getElementById("redbox").style.display = "block";
+            document.getElementById("redbox").onclick = function () {
+                guess("red");
+                console.log("You clicked red");
+            }
+
+            //Orange
+            document.getElementById("orangebox").style.borderRadius = "10";
+            document.getElementById("orangebox").style.top = 10 + "px";
+            document.getElementById("orangebox").style.left = 10 + "px";
+            document.getElementById("orangebox").style.display = "block";
+            document.getElementById("orangebox").onclick = function () {
+                guess("orange");
+                console.log("You clicked orange");
+            }
+
+            //Pink
+            document.getElementById("pinkbox").style.borderRadius = "10";
+            document.getElementById("pinkbox").style.top = 10 + "px";
+            document.getElementById("pinkbox").style.left = 10 + "px";
+            document.getElementById("pinkbox").style.display = "block";
+            document.getElementById("pinkbox").onclick = function () {
+                guess("pink")
+                console.log("You clicked pink");
+            }
+
+            //Green
+            document.getElementById("greenbox").style.borderRadius = "10";
+            document.getElementById("greenbox").style.top = 10 + "px";
+            document.getElementById("greenbox").style.left = 10 + "px";
+            document.getElementById("greenbox").style.display = "block";
+            document.getElementById("greenbox").onclick = function () {
+                guess("green");
+                console.log("You clicked green");
+            }
+
+            //Yellow
+            document.getElementById("yellowbox").style.borderRadius = "10";
+            document.getElementById("yellowbox").style.top = 10 + "px";
+            document.getElementById("yellowbox").style.left = 10 + "px";
+            document.getElementById("yellowbox").style.display = "block";
+            document.getElementById("yellowbox").onclick = function () {
+                guess("yellow");
+                console.log("You clicked yellow");
+            }
+
+            document.getElementById("removebox").style.borderRadius = "10";
+            document.getElementById("removebox").style.top = 10 + "px";
+            document.getElementById("removebox").style.left = 10 + "px";
+            document.getElementById("removebox").style.display = "block";
+            document.getElementById("removebox").onclick = function () {
+                removeBox();
+                console.log("You clicked removebox");
+            }
+
+            var guesses = "";
+            function guess(color) {
+                if (guess1 == null) {
+                    guess1 = color;
+                    guesses += color + ", ";
+                } else if (guess2 == null) {
+                    guess2 = color;
+                    guesses += color + ", ";
+                } else if (guess3 == null) {
+                    guess3 = color;
+                    guesses += color + ", ";
+                } else if (guess4 == null) {
+                    guess4 = color;
+                    guesses += color + ", ";
+
+                }
+                document.getElementById('myGuesses').textContent = guesses;
+                if (guess4 != null) {
+                    checkAnswer();
+                    attemptsLeft--;
+                    checkAttempts();
+                    document.getElementById('attempts').textContent = "You have " + attemptsLeft + " attempts left";
+                    resetGuesses();
+                    document.getElementById('myGuesses').textContent = "";
+                }
+            }
+
+            function resetGuesses() {
+                guess1 = null;
+                guess2 = null;
+                guess3 = null;
+                guess4 = null;
+                guesses = "";
+            }
+
+            function checkAttempts() {
+                if (attemptsLeft == 0) {
+                    alert("You lost, the correct answer was " + correctAnswer + "\nPlease Try Again");
+                    window.location.reload();
+                }
+            }
+            //need these variables to check answer
+            let b = 0;
+            let o = 0;
+            let g = 0;
+            let p = 0;
+            let y = 0;
+            let r = 0;
+            let b1 = 0;
+            let o1 = 0;
+            let g1 = 0;
+            let p1 = 0;
+            let y1 = 0;
+            let r1 = 0;
+            function checkAnswer() {
+                var whitePegs = 0;
+                var blackPegs = 0;
+                if (peg1.color == guess1) {
+                    blackPegs++;
+                }
+                if (peg2.color == guess2) {
+                    blackPegs++;
+                }
+                if (peg3.color == guess3) {
+                    blackPegs++;
+                }
+                if (peg4.color == guess4) {
+                    blackPegs++;
+                }
+                if (blackPegs == 4) {
+                    alert("You won!");
+                    window.location.reload();
+                } else {
+                    alert("Nice try, keep going!");
+                    //here comes the white number crunching...
+
+                    //How many guesser had
+                    countGuess()
+
+                    //How many there actually are in the answer
+                    countAnswer()
+
+                    while (b > 0 && b1 > 0) {
+                        whitePegs++;
+                        b--;
+                        b1--;
+                    }
+                    while (o > 0 && o1 > 0) {
+                        whitePegs++;
+                        o--;
+                        o1--;
+                    }
+                    while (g > 0 && g1 > 0) {
+                        whitePegs++;
+                        g--;
+                        g1--;
+                    }
+                    while (p > 0 && p1 > 0) {
+                        whitePegs++;
+                        p--;
+                        p1--;
+                    }
+                    while (y > 0 && y1 > 0) {
+                        whitePegs++;
+                        y--;
+                        y1--;
+                    }
+                    while (r > 0 && r1 > 0) {
+                        whitePegs++;
+                        r--;
+                        r1--;
+                    }
+
+                    whitePegs = whitePegs - blackPegs;
+
+                    document.getElementById('lastAttempt').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+
+                    if (attemptsLeft == 6) {
+                        document.getElementById('attempt1').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+                    } else if (attemptsLeft == 5) {
+                        document.getElementById('attempt2').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+                    } else if (attemptsLeft == 4) {
+                        document.getElementById('attempt3').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+                    } else if (attemptsLeft == 3) {
+                        document.getElementById('attempt4').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+                    } else if (attemptsLeft == 2) {
+                        document.getElementById('attempt5').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+                    } else if (attemptsLeft == 1) {
+                        document.getElementById('attempt6').textContent = guesses + blackPegs + " black pegs and " + whitePegs + " white pegs";
+                    }
+                    //Reset pegs after each guess;
+                    whitePegs = 0;
+                    blackPegs = 0;
+                    b = 0;
+                    o = 0;
+                    g = 0;
+                    p = 0;
+                    y = 0;
+                    r = 0;
+                    b1 = 0;
+                    o1 = 0;
+                    g1 = 0;
+                    p1 = 0;
+                    y1 = 0;
+                    r1 = 0;
+                }
+            }
+
+            function removeBox() {
+                if (guess3 != null) {
+                    guess3 = null;
+                    document.getElementById('myGuesses').textContent = guess1 + ", " + guess2 + ", ";
+                    guesses = guess1 + ", " + guess2 + ", ";
+                } else if (guess2 != null) {
+                    guess2 = null;
+                    document.getElementById('myGuesses').textContent = guess1 + ", ";
+                    guesses = guess1 + ", ";
+                } else if (guess1 != null) {
+                    guess1 = null;
+                    document.getElementById('myGuesses').textContent = "";
+                    guesses = "";
+                } else {
+                    alert("Nice try, but you can't do that");
+                }
+            }
+
+
+            //I shouldve used an array, then I could just iterate through guesses...
+            function countGuess() {
+                if (guess1 == "blue") {
+                    b++;
+                }
+                if (guess2 == "blue") {
+                    b++;
+                }
+                if (guess3 == "blue") {
+                    b++;
+                }
+                if (guess4 == "blue") {
+                    b++;
+                }
+                if (guess1 == "red") {
+                    r++;
+                }
+                if (guess2 == "red") {
+                    r++;
+                }
+                if (guess3 == "red") {
+                    r++;
+                }
+                if (guess4 == "red") {
+                    r++;
+                }
+                if (guess1 == "orange") {
+                    o++;
+                }
+                if (guess2 == "orange") {
+                    o++;
+                }
+                if (guess3 == "orange") {
+                    o++;
+                }
+                if (guess4 == "orange") {
+                    o++;
+                }
+                if (guess1 == "pink") {
+                    p++;
+                }
+                if (guess2 == "pink") {
+                    p++;
+                }
+                if (guess3 == "pink") {
+                    p++;
+                }
+                if (guess4 == "pink") {
+                    p++;
+                }
+                if (guess1 == "green") {
+                    g++;
+                }
+                if (guess2 == "green") {
+                    g++;
+                }
+                if (guess3 == "green") {
+                    g++;
+                }
+                if (guess4 == "green") {
+                    g++;
+                }
+                if (guess1 == "yellow") {
+                    y++;
+                }
+                if (guess2 == "yellow") {
+                    y++;
+                }
+                if (guess3 == "yellow") {
+                    y++;
+                }
+                if (guess4 == "yellow") {
+                    y++;
+                }
+            }
+
+            function countAnswer() {
+                if (peg1.color == "blue") {
+                    b1++;
+                }
+                if (peg2.color == "blue") {
+                    b1++;
+                }
+                if (peg3.color == "blue") {
+                    b1++;
+                }
+                if (peg4.color == "blue") {
+                    b1++;
+                }
+                if (peg1.color == "red") {
+                    r1++;
+                }
+                if (peg2.color == "red") {
+                    r1++;
+                }
+                if (peg3.color == "red") {
+                    r1++;
+                }
+                if (peg4.color == "red") {
+                    r1++;
+                }
+                if (peg1.color == "orange") {
+                    o1++;
+                }
+                if (peg2.color == "orange") {
+                    o1++;
+                }
+                if (peg3.color == "orange") {
+                    o1++;
+                }
+                if (peg4.color == "orange") {
+                    o1++;
+                }
+                if (peg1.color == "pink") {
+                    p1++;
+                }
+                if (peg2.color == "pink") {
+                    p1++;
+                }
+                if (peg3.color == "pink") {
+                    p1++;
+                }
+                if (peg4.color == "pink") {
+                    p1++;
+                }
+                if (peg1.color == "green") {
+                    g1++;
+                }
+                if (peg2.color == "green") {
+                    g1++;
+                }
+                if (peg3.color == "green") {
+                    g1++;
+                }
+                if (peg4.color == "green") {
+                    g1++;
+                }
+                if (peg1.color == "yellow") {
+                    y1++;
+                }
+                if (peg2.color == "yellow") {
+                    y1++;
+                }
+                if (peg3.color == "yellow") {
+                    y1++;
+                }
+                if (peg4.color == "yellow") {
+                    y1++;
+                }
+            }
+
+        }
+
+    </script>
+</body>
+</head>
+
+</html>
