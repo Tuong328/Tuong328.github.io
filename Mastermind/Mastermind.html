@@ -149,8 +149,15 @@
         var attemptsLeft = 6;
         var guessesLeftThisAttempt = 4;
 
+        var gameStarted = 0;
         //Four pegs
         function startGame() {
+            if (gameStarted == 1) {
+                gameStarted = 0;
+                window.location.reload();
+                startGame();
+            }
+            gameStarted++;
             let peg1 = new peg();
             //document.getElementById('peg1').textContent = peg1.color;
             let peg2 = new peg();
