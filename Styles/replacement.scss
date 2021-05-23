@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    max-width: 100%
 }
 
 .homePageHeader {
@@ -18,6 +19,10 @@
     padding: 10pt;
     width:75px; 
     height:75px;
+}
+
+.headerButtons:hover {
+    background-color: #4B9CD3;
 }
 
 .grid {
