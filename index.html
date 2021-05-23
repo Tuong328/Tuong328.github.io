@@ -1,40 +1,121 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF=8">
-        <title>James Tuong's Github | Projects & Programs</title>
-        <link rel="stylesheet" href = "Styles/styles.css">
-    </head>
-    <body>
-        <div class = "banner-text">
-        <ul>
 
-            <a href="projects.html"><button class = "button" style = "z-index: 1;">Projects and Programs</button></a>
-            <a href="contactInfo.html"><button class = "button" style = "z-index: 1;">Contact Me</button></a>
-        
-        </ul>
-        <h2>Welcome to James Tuong's Github!</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <title>James Tuong's Github</title>
+    <link rel="stylesheet" href="Styles/replacement.scss">
+</head>
+
+<!--Top of the page: Icons for clicking-->
+
+<body>
+    <header id="top">
+        <a href="https://www.linkedin.com/in/james-tuong-4b948aa3/" target="_blank">
+            <img class="headerButtons" alt="LinkedIn" src="photos/Linkedin-logo-1-550x550-300x300.png"></a>
+        <a href="#contactMeForm">
+            <img class="headerButtons" alt="Mail" src="photos/mailicon.jpg"></a>
+    </header>
+
+    <!--Small Bio-->
+    <div class="homePageHeaderContainer">
+        <div class="homePageHeaderBox">
+            <ul class="homePageHeader">
+                <li>Hi, my name is <u><b>James Tuong</b></u>!</li>
+                <li>I am an <u><b>aspiring developer</b></u>, currently</li>
+                <li> attending the <u><b>University of North Carolina at Chapel Hill</b></u>.</li>
+            </ul>
+        </div>
+        <div class="role">
+            <div class="block">
+
+            </div>
+        </div>
+    </div>
+</body>
+<br>
+<br>
+
+<!--Projects Go Here-->
+<header class = "homePageHeader"><u><b>Projects</b></u>
+<ul style = "font-size: 15pt;">
+    (Click Project Thumbnails to Check them Out!)
+</ul>
+</header>
+
+<div class="grid">
+    <div><a href="https://jtuong1.web.app/" target="_blank">
+        <img class="projectThumbnail" alt="SmokeLess" src="photos/tobaccoIsBad.png"></a></div>
+    <div><b><u>Smoke Less</b></u> is a small project that utilizes HTML, CSS, and JavaScript to
+         inform readers about the adverse affects of tobacco on the Human Body. Data
+         and information are pulled from the CDC Website.
     </div>
 
-    <!--Animations :)-->
-    <div class = "animation-area">
-        <ul class = "box-area" style = "text-align: center; color: white;">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            
-        </ul>
-    </div>
-    </body>
 
-    <script type="text/javascript">
-        document.getElementById("myButton").onclick = function () {
-            location.href = "www.yoursite.com";
-        };
-    </script>
+    <div>This project is a small remake of NASA's Picture of the Day.
+         In this Project I used the free API provided by NASA themselves to pull
+         their Image of the Day and it's information, and show it to users.
+         This project demonstrates usage of HTML, CSS, JavaScript, and API's.
+    </div>
+    <div><a href = "NASA_APotD.html">
+        <img class = "projectThumbnail" alt = "NASA_APotD" src = "photos/NASAPoTD.png"></a></div>
+
+
+    
+    <div><a href = "randomPokemon.html">
+        <img class = "projectThumbnail" alt = "randomPokemon" src = "photos/pokemonSearch.png">
+    </a></div>
+    <div>This project was a just-for-fun project for myself to look
+        up random Pokemon. When I was young I love to play Pokemon
+        on my Gameboy, and I found out that Game Freak has a free public
+        access API for the PokeDex and other Pokemon related items.
+        This project demonstrates usage of HTML, CSS, JavaScript, and
+        pulling data from API's based on user input.
+    </div>  
+  </div>
+
+
+
+
+
+<!--Contact Me Form-->
+<div class="contactMeForm" id="contactMeForm">
+    <header style="font-size: 50pt;"><b>Contact Me</b></header>
+    <br>
+    <form action="https://formspree.io/f/xqkwprzn" method="POST">
+        <label>
+            E-Mail
+            <br>
+            <input type="email" name="_replyto" class="inputFormEmail">
+        </label>
+        <br>
+        <label>
+            Message
+            <br>
+            <textarea name="message" class="inputFormMessage"></textarea>
+        </label>
+        <br>
+        <br>
+        <button type="submit" class="messageButton">Send Message</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="#top">Back to Top of Page</a>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+</script>
+
+
 </html>
