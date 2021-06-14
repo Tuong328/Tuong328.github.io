@@ -13,9 +13,10 @@
         gtag('js', new Date());
 
         gtag('config', 'G-T9WGCTM812', { 
-            'cookie_domain': 'tuong328.github.io',
-            'cookie_flags': 'SameSite=None;Secure',
+            cookie_domain: 'tuong328.github.io',
+            cookie_flags: 'SameSite=None;Secure',
         });
+        gtag('set', {cookie_flags: 'SameSite=None;Secure'});
         console.log('Google Analytics Done');
     </script>
 </head>
