@@ -129,7 +129,7 @@
             // Pokemon that was searched (or randomly picked);
             document.getElementById('nameAndNumber').textContent = pokemonNameUpperCase + " - " + "Pokedex #" + data.id;
 
-            document.getElementById('picture').src = `https://pokeres.bastionbot.org/images/pokemon/${data.id}.png`
+            document.getElementById('picture').src = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + data.id + '.png';
             document.getElementById('sprite').src = data.sprites.front_default;
             document.getElementById('shinySprite').src = data.sprites.front_shiny;
 
