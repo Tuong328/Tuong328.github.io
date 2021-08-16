@@ -33,7 +33,7 @@
                 Special Attack
             </div>
             <div id="special-defense">
-                Special Defense
+                Special Def.
             </div>
             <div id="speed">
                 Speed
@@ -74,6 +74,7 @@
         var pokemonName = prompt('Have a pokemon in mind? If not, leave blank for a random Pokemon.', '');
         var pokemonNumber = 0;
         var pokemonTypes = "";
+
         if (pokemonName === null || pokemonName === '') {
             pokemonName = Math.floor(Math.random() * 893);
         } else {
