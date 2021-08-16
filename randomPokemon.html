@@ -128,6 +128,11 @@
             pokemonNumber = data.id;
             // Pokemon that was searched (or randomly picked);
             document.getElementById('nameAndNumber').textContent = pokemonNameUpperCase + " - " + "Pokedex #" + data.id;
+            if ((data.id + "").length == 2) {
+                data.id = "0" + data.id;
+            } else if ((data.id + "").length == 1) {
+                data.id = "00" + data.id;
+            }
 
             document.getElementById('picture').src = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/' + data.id + '.png';
             document.getElementById('sprite').src = data.sprites.front_default;
